@@ -4,7 +4,9 @@ import { Route, Router, Routes } from 'react-router-dom'
 import Signup from './pages/Signup'
 import SignIn from './pages/SignIn'
 
+export const serverUrl = "http://localhost:8000"
 const App = () => {
+
   return (
     <Routes>
       <Route path='/signup' element={<Signup/>}/>
@@ -16,6 +18,6 @@ const App = () => {
   )
 }
 
-export default App
+export default App;
 
       

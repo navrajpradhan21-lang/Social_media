@@ -1,11 +1,10 @@
-import React from 'react'
 
 import logo from '../assets/logo.png'
 import logo1 from '../assets/logo1.png'
 import { useState } from 'react'
 import { IoEye } from "react-icons/io5";
 import { FaEyeSlash } from "react-icons/fa";
-import {useNavigate} from "react-router-dom"
+import {useNavigate,useDispatch} from "react-router-dom"
 
 const Signup = () => {
     const [inputclicked, setinputClicked] = useState({
@@ -14,17 +13,33 @@ const Signup = () => {
         email:false,
         password:false
     })
-    const [showPassword, setshowPassword] = useState("")
 
+    const [showPassword, setshowPassword] = useState(false)
     const [name, setname] = useState("")
-
-    const [username, setusername] = useState("")
-
+    const [userName, setuserName] = useState("")
     const [email, setemail] = useState("")
-
     const [password, setpassword] = useState("")
+    const [loading, setLoading] = useState(false)
+    const [err, setErr] = useState("")
 
     const navigate =useNavigate();
+    const dispatch = useDispatch()
+
+    const handleSignUp = async()=>{
+        setLoading(true)
+        setErr("")
+        try{
+            const result = await axios.post(`${serverUrl}/api/auth/signup`,{name,userName,email,password} , {withCredentials:true})
+            dispatch(setUserData(result.data))
+            setLoading(false)
+        }catch(error){
+            setErr(error.response?.data?.message)
+            console.log(error)
+            setLoading(false)
+        }
+        
+    }
+
 
   return (
     <div className='w-full h-screen bg-linear-to-b from-black to-gray-900 flex flex-col 
@@ -56,7 +71,7 @@ const Signup = () => {
                 onClick={()=>setinputClicked({...inputclicked,userName:true})}>
                     <label htmlFor="username" className={`text-gray-700 absolute left-5 p-5 h-[50%] flex items-center bg-white text-[15px] ${inputclicked.userName ? "top-[-20px]":""}`}>Enter Your UserName </label>
                     <input type="text" id='username'className='w-full h-full rounded-2xl px-5 outline-none border-0' required
-                    onChange={(e)=>setusername(e.target.value)}/>
+                    onChange={(e)=>setuserName(e.target.value)}/>
                 </div>
 
                 {/*email*/}
