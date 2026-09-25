@@ -4,7 +4,12 @@ import logo1 from '../assets/logo1.png'
 import { useState } from 'react'
 import { IoEye } from "react-icons/io5";
 import { FaEyeSlash } from "react-icons/fa";
-import {useNavigate,useDispatch} from "react-router-dom"
+import {useNavigate} from "react-router-dom";
+import {useDispatch} from 'react-redux';
+import { ClipLoader } from 'react-spinners';
+import axios from 'axios';
+import { serverUrl } from '../App';
+import { setUserData } from '../../redux/userSlice';
 
 const Signup = () => {
     const [inputclicked, setinputClicked] = useState({
@@ -37,9 +42,8 @@ const Signup = () => {
             console.log(error)
             setLoading(false)
         }
-        
+       
     }
-
 
   return (
     <div className='w-full h-screen bg-linear-to-b from-black to-gray-900 flex flex-col 
@@ -61,45 +65,47 @@ const Signup = () => {
                 {/* name */}
                 <div className='relative flex items-center justify-start w-[90%] h-12.5 rounded-2xl mt-7.5 border-2 border-black '
                 onClick={()=>setinputClicked({...inputclicked,name:true})}>
-                    <label htmlFor="name" className={`text-gray-700 absolute left-5 p-5 h-[50%] flex items-center bg-white text-[15px] ${inputclicked.name ? "top-[-20px]":""}`}>Enter Your Name </label>
+                    <label htmlFor="name" className={`text-gray-700 absolute left-5 p-5 h-[50%] flex items-center bg-white text-[15px] ${inputclicked.name ?"-top-5":""}`}>Enter Your Name </label>
                     <input type="text" id='name'className='w-full h-full rounded-2xl px-5 outline-none border-0' required
-                    onChange={(e)=>setname(e.target.value)}/>
+                    onChange={(e)=>setname(e.target.value)} value={name}/>
                 </div>
 
                 {/* UserName */}
                 <div className='relative flex items-center justify-start w-[90%] h-12.5 rounded-2xl mt-7.5 border-2 border-black '
                 onClick={()=>setinputClicked({...inputclicked,userName:true})}>
-                    <label htmlFor="username" className={`text-gray-700 absolute left-5 p-5 h-[50%] flex items-center bg-white text-[15px] ${inputclicked.userName ? "top-[-20px]":""}`}>Enter Your UserName </label>
+                    <label htmlFor="username" className={`text-gray-700 absolute left-5 p-5 h-[50%] flex items-center bg-white text-[15px] ${inputclicked.userName ? "-top-5":""}`}>Enter Your UserName </label>
                     <input type="text" id='username'className='w-full h-full rounded-2xl px-5 outline-none border-0' required
-                    onChange={(e)=>setuserName(e.target.value)}/>
+                    onChange={(e)=>setuserName(e.target.value)} value={userName}/>
                 </div>
 
                 {/*email*/}
                 <div className='relative flex items-center justify-start w-[90%] h-12.5 rounded-2xl mt-7.5 border-2 border-black '
                 onClick={()=>setinputClicked({...inputclicked,email:true})}>
-                    <label htmlFor="email" className={`text-gray-700 absolute left-5 p-5 h-[50%] flex items-center bg-white text-[15px] ${inputclicked.email ? "top-[-20px]":""}`}>Enter Your Email </label>
+                    <label htmlFor="email" className={`text-gray-700 absolute left-5 p-5 h-[50%] flex items-center bg-white text-[15px] ${inputclicked.email ? "-top-5":""}`}>Enter Your Email </label>
                     <input type="email" id='email'className='w-full h-full rounded-2xl px-5 outline-none border-0' required
-                    onChange={(e)=>setemail(e.target.value)}/>
+                    onChange={(e)=>setemail(e.target.value)} value={email}/>
                 </div>
                 
                 {/* Password */}
                 <div className='relative flex items-center justify-start w-[90%] h-12.5 rounded-2xl mt-7.5 border-2 border-black '
                 onClick={()=>setinputClicked({...inputclicked,password:true})}>
-                    <label htmlFor="password" className={`text-gray-700 absolute left-5 p-5 h-[50%] flex items-center bg-white text-[15px] ${inputclicked.password ? "top-[-20px]":""}`}>Enter Your Password</label>
+                    <label htmlFor="password" className={`text-gray-700 absolute left-5 p-5 h-[50%] flex items-center bg-white text-[15px] ${inputclicked.password ? "-top-5":""}`}>Enter Your Password</label>
                     <input type={showPassword?"text":"password"} id='password' className='w-full h-full rounded-2xl px-5 outline-none border-0' required
-                    onChange={(e)=>setpassword(e.target.value)}/>
-
+                    onChange={(e)=>setpassword(e.target.value)} value={password}/>
+                    
                     {!showPassword?<IoEye className='absolute cursor-pointer right-5 w-6.5 h-6.5' onClick={()=>setshowPassword(true)}/>:
                     <FaEyeSlash className='absolute cursor-pointer right-5 w-6.5 h-6.5' onClick={()=>setshowPassword(false)}/>
                     }
                 </div>
 
+                {err && <p className='text-red-500'>{err}</p>}
+
                 {/* Signup button */}
                 <button className='w-[70%] px-5 py-2.5 bg-black text-white font-semibold h-12 rounded-2xl
-                cursor-pointer hover:bg-gray-800'>Sign Up</button>
+                cursor-pointer hover:bg-gray-800' disabled={loading} onClick={handleSignUp}>{loading?<ClipLoader size={30} color = 'white'/>:"Sign Up"}</button>
+
 
                 {/* paragraph */}
-
                 <p className='text-gray-800 cursor-pointer'>Already Have an account ? <span className='border-b-2 border-b-black pb-3px
                  text-black' onClick={()=>navigate('/signIn')}>
                     Sign In
@@ -111,7 +117,6 @@ const Signup = () => {
             <div className='md:w-[50%] h-full hidden lg:flex justify-center items-center bg-[#000000] 
             flex-col gap-2.5 text-white text-[16px] font-semibold rounded-l-[30px]
             shadow-2xl shadow-black'>
-
                 <img src={logo1} alt="" className='w-[40%]'/>
                 <p>Not just a platform ,It's A VIBE</p>
             </div>

@@ -1,13 +1,15 @@
 
-
-import React from 'react'
-
-import logo from '../assets/logo.png'
-import logo1 from '../assets/logo1.png'
-import { useState } from 'react'
+import { ClipLoader } from 'react-spinners';
+import logo from '../assets/logo.png';
+import logo1 from '../assets/logo1.png';
+import { useState } from 'react';
 import { IoEye } from "react-icons/io5";
 import { FaEyeSlash } from "react-icons/fa";
 import {useNavigate} from "react-router-dom"
+import { useDispatch } from 'react-redux';
+import axios from 'axios';
+import { setUserData } from '../../redux/userSlice';
+import { serverUrl } from '../App';
 
 const SignIn = () => {
     const [inputclicked, setinputClicked] = useState({
@@ -17,12 +19,29 @@ const SignIn = () => {
         password:false
     })
     const [showPassword, setshowPassword] = useState("")
-
-    const [username, setusername] = useState("")
-
+    const [userName, setusername] = useState("")
     const [password, setpassword] = useState("")
+    const [loading, setLoading] = useState("")
+
+    const [err, setErr] = useState("")
 
     const navigate =useNavigate();
+    const dispatch = useDispatch()
+
+    const handleSignIn = async ()=>{
+        setLoading(true)
+        setErr("") 
+        try{
+            const result = await axios.post(`${serverUrl}/api/auth/login`,{userName,password},{withCredentials:true})
+            dispatch(setUserData(result.data))
+            setLoading(false)
+        }catch(error){
+            console.log(error)
+            setLoading(false)
+            setErr(error.response?.data?.message)
+
+        }
+    }
 
   return (
     <div className='w-full h-screen bg-linear-to-b from-black to-gray-900 flex flex-col 
@@ -44,25 +63,26 @@ const SignIn = () => {
                 {/* UserName */}
                 <div className='relative flex items-center justify-start w-[90%] h-12.5 rounded-2xl mt-7.5 border-2 border-black '
                 onClick={()=>setinputClicked({...inputclicked,userName:true})}>
-                    <label htmlFor="username" className={`text-gray-700 absolute left-5 p-5 h-[50%] flex items-center bg-white text-[15px] ${inputclicked.userName ? "top-[-20px]":""}`}>Enter Your UserName </label>
+                    <label htmlFor="username" className={`text-gray-700 absolute left-5 p-5 h-[50%] flex items-center bg-white text-[15px] ${inputclicked.userName ? "-top-5":""}`}>Enter Your UserName </label>
                     <input type="text" id='username'className='w-full h-full rounded-2xl px-5 outline-none border-0' required
-                    onChange={(e)=>setusername(e.target.value)}/>
+                    onChange={(e)=>setusername(e.target.value)} value={userName}/>
                 </div>
                 {/* Password */}
                 <div className='relative flex items-center justify-start w-[90%] h-12.5 rounded-2xl mt-7.5 border-2 border-black '
                 onClick={()=>setinputClicked({...inputclicked,password:true})}>
-                    <label htmlFor="password" className={`text-gray-700 absolute left-5 p-5 h-[50%] flex items-center bg-white text-[15px] ${inputclicked.password ? "top-[-20px]":""}`}>Enter Your Password</label>
+                    <label htmlFor="password" className={`text-gray-700 absolute left-5 p-5 h-[50%] flex items-center bg-white text-[15px] ${inputclicked.password ? "-top-5":""}`}>Enter Your Password</label>
                     <input type={showPassword?"text":"password"} id='password' className='w-full h-full rounded-2xl px-5 outline-none border-0' required
-                    onChange={(e)=>setpassword(e.target.value)}/>
+                    onChange={(e)=>setpassword(e.target.value)} value={password}/>
 
                     {!showPassword?<IoEye className='absolute cursor-pointer right-5 w-6.5 h-6.5' onClick={()=>setshowPassword(true)}/>:
                     <FaEyeSlash className='absolute cursor-pointer right-5 w-6.5 h-6.5' onClick={()=>setshowPassword(false)}/>
                     }
                 </div>
+                {err && <p className='text-red-500'>{err}</p>}
 
                 {/* SignIn button */}
                 <button className='w-[70%] px-5 py-2.5 bg-black text-white font-semibold h-12 rounded-2xl
-                cursor-pointer hover:bg-gray-800'>Sign In</button>
+                cursor-pointer hover:bg-gray-800'onClick={handleSignIn} disabled={loading}>{loading?<ClipLoader size={30} color='white'/>:"Sign In"}</button>
 
                 {/* paragraph */}
 

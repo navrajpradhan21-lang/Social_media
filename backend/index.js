@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser"
 import connectDb from "./config/db.js"
 import authRouter from "./routes/auth.routes.js"
 import cors from 'cors';
+import userRouter from "./routes/user.routes.js"
 
 configDotenv() // load env variables
 
@@ -31,6 +32,7 @@ app.get('/',async(req, res)=>{
 })
 
 app.use('/api/auth',authRouter)
+app.use('/api/user',userRouter)
 
 
 

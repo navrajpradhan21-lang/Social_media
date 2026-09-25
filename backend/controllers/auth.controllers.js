@@ -95,6 +95,8 @@ export const logout = async(req,res)=>{
     }
 }
 
+
+// setopt
 export const sendOtp = async(req,res)=>{
     try{
         const {email} = req.body
@@ -118,7 +120,7 @@ export const sendOtp = async(req,res)=>{
         return res.status(500).json({message:`send otp error ${error}`})
     }
 }
-
+// Verify otp
 export const verifyOtp = async(req,res)=>{
     try{
         const {email ,otp} =req.body
@@ -143,6 +145,7 @@ export const verifyOtp = async(req,res)=>{
     }
 }
 
+// get reset 
 export const resetPassword = async(req,res)=>{
     try{
         const {email,password} = req.body
@@ -161,3 +164,6 @@ export const resetPassword = async(req,res)=>{
         return res.status(500).json({message:`rest otp error ${error}`})
     }
 }
+
+// get current user
+
