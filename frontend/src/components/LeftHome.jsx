@@ -5,9 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { serverUrl } from "../App";
 import { setUserData } from "../../redux/userSlice";
+import OtherUser from "./OtherUser";
 
 const LeftHome = () => {
-    const {userData}= useSelector(state=>state.user)
+    const {userData,suggestedUsers}= useSelector(state=>state.user)
     const dispatch = useDispatch()
     const handleLogOut = async()=>{
         try{
@@ -27,8 +28,10 @@ const LeftHome = () => {
         </div>
 
         {/* Profile*/}
-            <div className='flex items-center gap-2.5'>
-                <div className="w-17.5 h-17.5 border-2 border-black cursor-pointer
+            <div className='flex items-center justify-between p-2 border-b-2 border-gray-500
+            py-2.5'>
+                <div className="flex items-center gap-2.5">
+                    <div className="w-17.5 h-17.5 border-2 border-black cursor-pointer
                 overflow-hidden rounded-full">
                     <img src={userData.profileImage || dp} alt="" />
                 </div>
@@ -37,12 +40,18 @@ const LeftHome = () => {
                 <div className="text-white font-semibold text-[18px]">{userData.userName}</div>
                 <div className="text-[15px] text-gray-300">{userData.name}</div>
             </div>
+                </div>
 
             <div className='text-blue-500 font-semibold cursor-pointer' onClick={handleLogOut}>Log Out</div>
         </div>
         {/* Suggest User */}
         <div className="w-full flex flex-col gap-5 p-5">
             <h1 className="text-white text-[19px]"> Suggested Users </h1>
+            {suggestedUsers && suggestedUsers.slice(0,3).map((user,index)=>
+            (
+                <OtherUser key={index} user={user}/>
+            ))}
+
         </div>
         
         

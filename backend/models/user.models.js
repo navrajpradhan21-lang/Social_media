@@ -23,6 +23,15 @@ const userSchema = new mongoose.Schema({
     profileImage:{
         type:String
     },
+    bio:{
+        type:String
+    },
+    profession:{
+        type:String
+    },
+    gender:{
+        type:String
+    },
     followers:[
         { 
             type:mongoose.Schema.Types.ObjectId,
@@ -45,6 +54,12 @@ const userSchema = new mongoose.Schema({
         {
             type:mongoose.Schema.Types.ObjectId,
             ref:"Post"
+        }
+    ],
+    savedLoops:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"Loop"
         }
     ],
     loops:[

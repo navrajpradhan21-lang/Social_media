@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import authRouter from "../routes/auth.routes";
 
 
 const postSchema = new mongoose.Schema({
@@ -30,8 +31,13 @@ const postSchema = new mongoose.Schema({
     ],
     comments:[
         {
+        author:{
             type:mongoose.Schema.Types.ObjectId,
             ref:"User"
+        },
+        message:{
+            type:{String}
+        }
         }
     ]
 
