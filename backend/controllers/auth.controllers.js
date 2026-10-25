@@ -165,5 +165,3 @@ export const resetPassword = async(req,res)=>{
     }
 }
 
-// get current user
-

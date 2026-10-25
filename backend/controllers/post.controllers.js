@@ -1,6 +1,6 @@
-import uploadOnCloudinary from "../config/cloudinary";
-import PostModel from "../models/post.model";
-import UserModel from "../models/user.models";
+import uploadOnCloudinary from "../config/cloudinary.js";
+import PostModel from "../models/post.model.js";
+import UserModel from "../models/user.models.js";
 
 
 
