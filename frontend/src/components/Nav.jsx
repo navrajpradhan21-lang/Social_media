@@ -4,8 +4,12 @@ import { MdHome } from "react-icons/md";
 import { FaSearch } from "react-icons/fa";
 import { RxVideo } from "react-icons/rx";
 import { GrAdd } from "react-icons/gr";
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Nav = () => {
+    const navigate = useNavigate()
+    const {userData} = useSelector(state=>state.user)
     return (
         <div className='w-[90%] lg:w-[40%] h-20 bg-black flex justify-around
     items-center fixed bottom-5 rounded-full shadow-2xl shadow-[#000000] z-100'>
@@ -20,7 +24,7 @@ const Nav = () => {
         {/* Profile  */}
         <div className="flex items-center gap-2.5">
             <div className="w-10 h-10 border-2 border-black cursor-pointer
-            overflow-hidden rounded-full">
+            overflow-hidden rounded-full"onClick={()=>navigate(`/profile/${userData.userName}`)}>
                 <img src={dp} alt="" />
             </div>
         </div>
@@ -30,4 +34,4 @@ const Nav = () => {
     )
 }
 
-export default Nav
+export default Nav;
