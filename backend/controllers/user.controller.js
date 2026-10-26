@@ -52,7 +52,7 @@ export const editProfile = async(req, res)=>{
         }
         const sameUserWithName = await UserModel.findOne({userName}).select("-password")
 
-        if(sameUserWithName && sameUserWithUserName._id != req.userId){
+        if(sameUserWithName && sameUserWithName._id != req.userId){
             return res.status(400).json({message:"userName already existed"})
         }
         let profileImage;

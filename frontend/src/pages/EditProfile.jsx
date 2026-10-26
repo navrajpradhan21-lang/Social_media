@@ -67,7 +67,7 @@ const EditProfile = () => {
             <div className='w-20 h-20 md:w-35 md:h-35 border-2 border-black rounded-full cursor-pointer overflow-hidden'
              onClick={()=>imageInput.current.click()}>
                 <input type="file" accept='image/*' ref={imageInput} hidden onChange={handleImage} />
-                <img src={profileData?.profileImage || dp} alt="" className='w-full object-cover' />
+                <img src={frontendImage} alt="" className='w-full object-cover' />
             </div>
             <div className='text-blue-500 text-center text-[18px] font-semibold cursor-pointer'onClick={() => imageInput.current.click()}>Change Your Profile Picture</div>
 
