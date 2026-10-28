@@ -7,6 +7,7 @@ import UserModel from "../models/user.models.js";
 export const uploadPost = async(req,res)=>{
     try{
         const{caption,mediaType} = req.body
+        
         let media;
         if(req.file){
             media = await uploadOnCloudinary(req.file.path)

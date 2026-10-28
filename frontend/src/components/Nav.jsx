@@ -16,16 +16,16 @@ const Nav = () => {
 
         {/* ICONS OF NAVbar */}
 
-        <div><MdHome className='text-white w-6.5 h-6.5 ' /></div>
-        <div><FaSearch className='text-white w-6.5 h-6.5 '/></div>
-        <div><GrAdd className='text-white w-6.5 h-6.5 '/></div>
+        <div onClick={()=>navigate("/")}><MdHome className='text-white w-6.5 h-6.5 cursor-poniter'/></div>
+        <div onClick={()=>navigate()}><FaSearch className='text-white w-6.5 h-6.5 cursor-pointer'/></div>
+        <div onClick={()=>navigate("/upload")}><GrAdd className='text-white w-6.5 h-6.5 cursor-pointer'/></div>
         <div><RxVideo className='text-white w-6.5 h-6.5 '/></div>
        
         {/* Profile  */}
         <div className="flex items-center gap-2.5">
             <div className="w-10 h-10 border-2 border-black cursor-pointer
             overflow-hidden rounded-full"onClick={()=>navigate(`/profile/${userData.userName}`)}>
-                <img src={dp} alt="" />
+                <img src={userData.profileImage||dp} alt="" />
             </div>
         </div>
 
