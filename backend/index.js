@@ -1,5 +1,7 @@
 import express from "express"
 import { configDotenv } from "dotenv"
+import { dirname, resolve } from "node:path"
+import { fileURLToPath } from "node:url"
 import cookieParser from "cookie-parser"
 import connectDb from "./config/db.js"
 import authRouter from "./routes/auth.routes.js"
@@ -8,7 +10,7 @@ import userRouter from "./routes/user.routes.js"
 import postRouter from "./routes/post.routes.js"
 import loopRouter from "./routes/loop.routes.js"
 
-configDotenv() // load env variables
+configDotenv({ path: resolve(dirname(fileURLToPath(import.meta.url)), ".env") })
 
 const app = express()
 
@@ -44,4 +46,3 @@ app.listen(PORT,()=>{
     connectDb()
     console.log(`Server started at ${PORT}`)
 })
-

@@ -41,7 +41,7 @@ const EditProfile = () => {
             formdata.append("userName",userName)
             formdata.append("bio",bio)
             formdata.append("profession",profession)
-            formdata.append("profession",gender)
+            formdata.append("gender",gender)
             if(backendImage){
                 formdata.append("profileImage",backendImage)
             }
