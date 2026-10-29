@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 const VideoPlayer = ({media}) => {
     const videoTag = useRef()
-    const [mute, setmute] = useState(false)
+    const [mute, setmute] = useState(true)
     const [IsPlaying, setIsPlaying] = useState(true)
 
     const handleClick = ()=>{

@@ -20,7 +20,7 @@ const postSchema = new mongoose.Schema({
     },
     
     caption:{
-        trype:String,
+        type:String,
 
     },
     likes:[
@@ -36,7 +36,7 @@ const postSchema = new mongoose.Schema({
             ref:"User"
         },
         message:{
-            type:{String}
+            type:String
         }
         }
     ]

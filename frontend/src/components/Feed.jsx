@@ -3,9 +3,12 @@ import { FaRegHeart } from "react-icons/fa";
 import logo from "../assets/logo1.png"
 import StoryDp from './StoryDp';
 import Nav from './Nav';
+import { useSelector } from 'react-redux';
+import Post from './Post';
 
 
 const Feed = () => {
+  const {postData} = useSelector(state=>state.post)
   return (
     <div className='lg:w-[50%] w-full bg-black min-h-screen lg:h-screen relative lg:overflow-y-auto'>
       {/* Vibe logo and heart icon for phone */}
@@ -34,7 +37,10 @@ const Feed = () => {
       <div className='bg-white rounded-t-[60px] w-full min-h-screen flex flex-col 
       items-center gap-5 p-2.5 pt-10 relative pb-30 '>
 
-      <Nav/>  
+      <Nav/> 
+      {postData?.map((post,index)=>(
+        <Post post = {post} key={index}/>
+      ))} 
 
       </div>
 

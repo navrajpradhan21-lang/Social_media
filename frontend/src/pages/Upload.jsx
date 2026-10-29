@@ -85,7 +85,7 @@ const Upload = () => {
     }
 
     const handleUpload = () => {
-        //setloading(true)
+        setloading(true)
         if (uploadType == "post") {
             uploadPost()
         } else if (uploadType == "story") {
